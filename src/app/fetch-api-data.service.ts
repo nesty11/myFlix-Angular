@@ -96,16 +96,12 @@ export class UserRegistrationService {
   getFavoriteMovie(userName: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .get(apiUrl + 'users' + userName, {
+      .get(apiUrl + 'users/' + userName, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
       })
-      .pipe(
-        map(this.extractResponseData),
-        map((data) => data.FavoriteMovies),
-        catchError(this.handleError)
-      );
+      .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
 
   //Add favorite movie
@@ -157,7 +153,7 @@ export class UserRegistrationService {
   }
 
   // Non-typed response extraction
-  private extractResponseData(res: Response): any {
+  private extractResponseData(res: Response | Object): any {
     const body = res;
     return body || {};
   }
