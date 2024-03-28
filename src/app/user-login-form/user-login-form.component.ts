@@ -20,7 +20,7 @@ export class UserLoginFormComponent implements OnInit {
   ngOnInit(): void {}
 
   loginUser(): void {
-    this.UserRegistrationService.userRegistration(this.userData).subscribe(
+    this.UserRegistrationService.userLogin(this.userData).subscribe(
       (result) => {
         localStorage.setItem('user', JSON.stringify(result.user));
         localStorage.setItem('token', JSON.stringify(result.token));
