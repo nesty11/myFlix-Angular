@@ -22,11 +22,12 @@ export class UserRegistrationService {
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
     return this.http
-      .post(apiUrl + '/login', userDetails)
+      .post(apiUrl + '/users', userDetails)
       .pipe(catchError(this.handleError));
   }
   //User login
   public userLogin(userDetails: any): Observable<any> {
+    console.log(userDetails);
     return this.http
       .post(apiUrl + '/login', userDetails)
       .pipe(catchError(this.handleError));
