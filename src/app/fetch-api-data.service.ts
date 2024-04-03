@@ -108,7 +108,7 @@ export class UserRegistrationService {
   addFavoriteMovie(userName: string, movieID: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .get(apiUrl + '/users/' + userName + '/movies/' + movieID, {
+      .post(apiUrl + '/users/' + userName + '/movies/' + movieID, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
@@ -120,7 +120,7 @@ export class UserRegistrationService {
   editUser(username: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .get(apiUrl + '/users/' + username, {
+      .put(apiUrl + '/users/' + username, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
@@ -132,7 +132,7 @@ export class UserRegistrationService {
   deleteUser(username: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .get(apiUrl + '/users/' + username, {
+      .delete(apiUrl + '/users/' + username, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
@@ -144,7 +144,7 @@ export class UserRegistrationService {
   deleteFavoriteMovies(username: string, movieID: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-      .get(apiUrl + '/users/' + username + '/movies/' + movieID, {
+      .delete(apiUrl + '/users/' + username + '/movies/' + movieID, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
