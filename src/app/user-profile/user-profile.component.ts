@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {}
 
   editUser(): void {
-    this.UserRegistrationService.editUser(this.userData).subscribe(
+    this.UserRegistrationService.editUser(this.userData.Username).subscribe(
       (result) => {
         localStorage.setItem('user', JSON.stringify(result));
         this.snackBar.open('User update successful', 'OK', {
@@ -38,7 +38,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   deleteUser(): void {
-    this.UserRegistrationService.deleteUser(this.userData).subscribe(
+    this.UserRegistrationService.deleteUser(this.userData.Username).subscribe(
       (result) => {
         localStorage.clear();
         this.router.navigate(['welcome']);
