@@ -51,4 +51,12 @@ export class MovieCardComponent implements OnInit {
       data: { director: director },
     });
   }
+
+  public openGenreComponent(genre: any) {
+    this.dialog.open(GenreComponent, {
+      width: '400px',
+      height: '300px',
+      data: { genre: genre },
+    });
+  }
 }
