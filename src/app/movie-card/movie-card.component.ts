@@ -43,4 +43,12 @@ export class MovieCardComponent implements OnInit {
       data: { Description: Description },
     });
   }
+
+  public openDirectorComponent(director: any) {
+    this.dialog.open(DirectorComponent, {
+      width: '500px',
+      height: '500px',
+      data: { director: director },
+    });
+  }
 }
