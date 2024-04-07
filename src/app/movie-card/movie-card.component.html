@@ -5,11 +5,21 @@
       <!--       <img mat-card-image src="{{ movie.ImagePath }}" alt="{{ movie.Title }}" />
  -->
       <mat-card-actions class="actions">
-        <button mat-button color="primary" (click)="(openSynopsisComponent)">
+        <button
+          mat-button
+          color="primary"
+          (click)="openSynopsisComponent(movie.Description)"
+        >
           Synopsis
         </button>
         <button mat-button color="primary">Genre</button>
-        <button mat-button color="primary">Director</button>
+        <button
+          mat-button
+          color="primary"
+          (click)="openDirectorComponent(movie.Director)"
+        >
+          Director
+        </button>
         <button mat-icon-button style="width: auto" color="primary">
           <mat-icon style="transform: scale(1.5)" color="primary"
             >favorite_border</mat-icon
