@@ -2,11 +2,10 @@
 <div class="profile-container">
   <mat-card class="user-card">
     <mat-card-header class="profile-card-header">
-      <mat-card-title>{{ userData.Username }}</mat-card-title>
+      <mat-card-title>Username:{{ userData.Username }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <p>Email: {{ userData.Email }}</p>
-      <p>Birthday: {{ userData.Birthday | date : "longDate" }}</p>
     </mat-card-content>
   </mat-card>
   <mat-card class="edit-userdata-card">
@@ -45,17 +44,6 @@
             placeholder="Email"
             type="email"
             name="Email"
-            required
-          />
-        </mat-form-field>
-        <label>Birthday:</label>
-        <mat-form-field class="form-inputs">
-          <input
-            matInput
-            [(ngModel)]="userData.Birthday"
-            placeholder="Birthday"
-            type="date"
-            name="Birthday"
             required
           />
         </mat-form-field>
