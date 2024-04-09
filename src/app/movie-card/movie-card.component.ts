@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserRegistrationService } from '../fetch-api-data.service';
+import { MatDialog } from '@angular/material/dialog';
 import { DirectorComponent } from '../director/director.component';
 import { GenreComponent } from '../genre/genre.component';
 import { SynopsisComponent } from '../synopsis/synopsis.component';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-movie-card',
@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class MovieCardComponent implements OnInit {
   movies: any[] = [];
+
   constructor(
     public fetchApiData: UserRegistrationService,
     public dialog: MatDialog
@@ -24,23 +25,14 @@ export class MovieCardComponent implements OnInit {
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
-      console.log(this.movies);
-      return this.movies;
     });
   }
 
-  /* openSynopsisComponent(): void {
-    this.dialog.open(SynopsisComponent, {
-      width: '300px',
-      height: '300px',
-    });
-  } */
-
-  public openSynopsisComponent(Description: string) {
+  public openSynopsisComponent(description: string) {
     this.dialog.open(SynopsisComponent, {
       width: '500px',
       height: '500px',
-      data: { Description: Description },
+      data: { Description: description },
     });
   }
 
@@ -58,5 +50,27 @@ export class MovieCardComponent implements OnInit {
       height: '300px',
       data: { genre: genre },
     });
+  }
+
+  // Add movie to favorites
+  public addFavorite(movieID: string): void {
+    this.fetchApiData.addFavoriteMovies(movieID).subscribe(() => {
+      // Refresh movies after adding to favorites
+      this.getMovies();
+    });
+  }
+
+  // Remove movie from favorites
+  public removeFavorite(movieID: string): void {
+    this.fetchApiData.deleteFavoriteMovie(movieID).subscribe(() => {
+      // Refresh movies after removing from favorites
+      this.getMovies();
+    });
+  }
+
+  // Check if a movie is a favorite
+  public isFavorite(movieID: any): boolean {
+    // Assuming you have a method in UserRegistrationService to check if a movie is a favorite
+    return this.fetchApiData.isFavoriteMovie(movieID);
   }
 }
