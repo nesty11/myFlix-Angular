@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUserData(): void {
-    const username = localStorage.getItem('username'); // Assuming you store the username in localStorage upon login
+    const username = localStorage.getItem('user'); // Assuming you store the username in localStorage upon login
     if (username) {
       this.userRegistrationService.getUser(username).subscribe(
         (result) => {
