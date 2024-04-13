@@ -8,8 +8,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
 })
+
 export class UserProfileComponent implements OnInit {
-  userData: any = {};
+  userData: any = { Username: '', Password: '', Email: '' };
   newPassword: string = '';
 
   constructor(
