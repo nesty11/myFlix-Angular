@@ -12,6 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UserProfileComponent implements OnInit {
   userData: any = { Username: '', Password: '', Email: '' };
   newPassword: string = '';
+  existingUsername: string = '';
+  existingEmail: string = '';
 
   constructor(
     public userRegistrationService: UserRegistrationService,
@@ -26,9 +28,13 @@ export class UserProfileComponent implements OnInit {
   getUserData(): void {
     const username = localStorage.getItem('user');
     if (username) {
-      this.userRegistrationService.getUser(username).subscribe(
+      console.log('Fetching user data for username:', username);
+      this.userRegistrationService.getOneUser(username).subscribe(
         (result) => {
+          console.log('User data retrieved successfully:', result);
           this.userData = result;
+          this.existingUsername = result.Username;
+          this.existingEmail = result.Email;
         },
         (error) => {
           console.error('Error fetching user data:', error);

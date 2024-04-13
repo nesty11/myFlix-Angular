@@ -1,7 +1,16 @@
 <app-navbar></app-navbar>
 <div class="profile-container">
+  <!-- User Card -->
   <mat-card class="user-card">
+    <mat-card-header class="profile-card-header">
+      <mat-card-title>Username: {{ existingUsername }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Email: {{ existingEmail }}</p>
+    </mat-card-content>
   </mat-card>
+
+  <!-- Edit User Data Card -->
   <mat-card class="edit-userdata-card">
     <mat-card-header class="profile-card-header">
       <mat-card-title>Update Profile</mat-card-title>
