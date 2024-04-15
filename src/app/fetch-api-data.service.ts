@@ -89,15 +89,34 @@ export class UserRegistrationService {
       .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
 
+  getUserFromLocalStorage() {
+    const userDataString = localStorage.getItem('user');
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      const { Username, Email } = userData;
+      return { Username, Email };
+    } else {
+      return null;
+    }
+  }
+
   public getOneUser(username: string): Observable<any> {
-    const token = localStorage.getItem('token');
-    return this.http
-      .get(apiUrl + '/users/' + username, {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + token,
-        }),
-      })
-      .pipe(map(this.extractResponseData), catchError(this.handleError));
+    const userData = this.getUserFromLocalStorage();
+    if (userData) {
+      const { Username, Email } = userData;
+      const token = localStorage.getItem('token');
+      return this.http
+        .get(apiUrl + '/users/' + username, {
+          headers: new HttpHeaders({
+            Authorization: 'Bearer ' + token,
+            Username: Username,
+            Email: Email,
+          }),
+        })
+        .pipe(map(this.extractResponseData), catchError(this.handleError));
+    } else {
+      return throwError('User data not found in localStorage');
+    }
   }
 
   // Edit user
