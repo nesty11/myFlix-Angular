@@ -1,10 +1,10 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Sign-Up!</mat-card-title>
+    <mat-card-title class="custom-dialog-title">Sign-Up!</mat-card-title>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content class="custom-dialog-content">
     <form>
-      <mat-form-field>
+      <mat-form-field class="custom-form-field">
         <input
           matInput
           [(ngModel)]="userData.Name"
@@ -14,7 +14,7 @@
           required
         />
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field class="custom-form-field">
         <input
           matInput
           [(ngModel)]="userData.Username"
@@ -24,7 +24,7 @@
           required
         />
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field class="custom-form-field">
         <input
           matInput
           [(ngModel)]="userData.Password"
@@ -34,7 +34,7 @@
           required
         />
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field class="custom-form-field">
         <input
           matInput
           [(ngModel)]="userData.Email"
@@ -44,7 +44,7 @@
           required
         />
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field class="custom-form-field">
         <input
           matInput
           [(ngModel)]="userData.Birthday"
@@ -55,8 +55,13 @@
       </mat-form-field>
     </form>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button (click)="registerUser()" color="primary">
+  <mat-card-actions class="custom-dialog-actions">
+    <button
+      mat-raised-button
+      (click)="registerUser()"
+      color="primary"
+      class="custom-button"
+    >
       Sign-Up
     </button>
   </mat-card-actions>

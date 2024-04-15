@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 import { UserRegistrationService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-registration-form',
@@ -20,12 +21,19 @@ export class UserRegistrationFormComponent implements OnInit {
   constructor(
     public UserRegistrationService: UserRegistrationService,
     public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {}
 
-  //This is the fuction responsible for sending the form inputs to the backend
+  openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.panelClass = 'custom-dialog'; // Apply custom class to dialog
+    this.dialog.open(UserRegistrationFormComponent, dialogConfig);
+  }
+
+  //This is the function responsible for sending the form inputs to the backend
   registerUser(): void {
     this.UserRegistrationService.userRegistration(this.userData).subscribe({
       next: (response) => {
