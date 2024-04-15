@@ -1,0 +1,78 @@
+.synopsis-button,
+.genre-button,
+.director-button {
+  margin-right: 10px;
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #009688; /* Teal blue */
+  color: #ffffff !important; /* White */
+}
+
+.synopsis-button:hover,
+.genre-button:hover,
+.director-button:hover {
+  background-color: #00796b; /* Darker teal blue */
+}
+
+.synopsis-button,
+.genre-button,
+.director-button {
+  color: #ffffff !important; /* White */
+}
+
+.movie-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 80px;
+}
+
+.movie-card {
+  margin: 20px;
+  width: 300px;
+  background-color: #455a64; /* Slate grey */
+}
+
+.img-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: #455a64; /* Slate grey */
+  color: #ff5722; /* Sunset orange */
+}
+
+.card-title {
+  font-size: 18px;
+}
+
+.card-subtitle {
+  color: #ffffff; /* White */
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.actions button {
+  color: #ffffff; /* White */
+}
+
+@media screen and (max-width: 768px) {
+  .movie-card {
+    width: calc(50% - 40px);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .movie-card {
+    width: calc(100% - 40px);
+  }
+}
+
+.favorite-button mat-icon {
+  color: #ff5722 !important; /* Sunset orange */
+}
