@@ -1,0 +1,24 @@
+.custom-login-title {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 5px 80px;
+}
+
+.custom-form-field {
+    margin: 1rem auto;
+    width: 90%;
+}
+
+.custom-login-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.custom-button {
+    margin: 10px auto;
+    padding: 1.5rem;
+    font-size: 18px;
+    background-color: #00796b !important; // Teal blue
+    color: #fff !important; // White
+    width: 90%;
+}
