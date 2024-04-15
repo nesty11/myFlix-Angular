@@ -1,0 +1,22 @@
+.main-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #6b6e70;
+
+  h1 {
+    color: #ff6f61;
+  }
+
+  button {
+    background-color: #00796b;
+    color: #ffffff;
+    margin-top: 20px;
+  }
+
+  button + button {
+    margin-left: 30px;
+  }
+}
