@@ -1,0 +1,25 @@
+.navbar {
+  background-color: #455a64;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  .navbar-button {
+    color: #ffffff;
+    margin-right: 16px;
+    font-size: 24px;
+  }
+
+  .spacer {
+    flex-grow: 1;
+  }
+
+  .nav-buttons {
+    display: flex;
+  }
+
+  .nav-icon-button {
+    color: #ffffff;
+    margin-right: 8px;
+  }
+}
