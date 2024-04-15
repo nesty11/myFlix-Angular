@@ -8,7 +8,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
 })
-
 export class UserProfileComponent implements OnInit {
   userData: any = { Username: '', Password: '', Email: '' };
   newPassword: string = '';
@@ -22,29 +21,21 @@ export class UserProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUserData();
+    const userData = this.getUserData();
+    if (userData) {
+      this.existingUsername = userData.Username;
+      this.existingEmail = userData.Email;
+    }
   }
 
-  getUserData(): void {
-    const username = localStorage.getItem('user');
-    if (username) {
-      console.log('Fetching user data for username:', username);
-      this.userRegistrationService.getOneUser(username).subscribe(
-        (result) => {
-          console.log('User data retrieved successfully:', result);
-          this.userData = result;
-          this.existingUsername = result.Username;
-          this.existingEmail = result.Email;
-        },
-        (error) => {
-          console.error('Error fetching user data:', error);
-          this.snackBar.open('Failed to fetch user data', 'OK', {
-            duration: 2000,
-          });
-        }
-      );
+  getUserData() {
+    const userDataString = localStorage.getItem('user');
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      const { Username, Email } = userData;
+      return { Username, Email };
     } else {
-      console.error('Username not found in localStorage');
+      return null;
     }
   }
 

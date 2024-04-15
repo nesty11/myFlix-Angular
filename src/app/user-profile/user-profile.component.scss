@@ -1,0 +1,100 @@
+.profile-container {
+  max-width: 600px;
+  background-color: #455a64;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 20px;
+  height: 200px;
+}
+
+.profile-container .profile-card-header {
+  background-color: #ff6f00;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 10px;
+}
+
+.profile-container .profile-card-title {
+  font-size: 20px;
+}
+
+.profile-container .profile-email {
+  font-size: 16px;
+}
+
+.edit-userdata-card {
+  max-width: 400px;
+  background-color: #455a64;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.edit-userdata-card .profile-card-header {
+  background-color: #ff6f00;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 10px;
+}
+
+.edit-userdata-card .profile-card-title {
+  font-size: 20px;
+}
+
+.edit-userdata-card .profile-email {
+  font-size: 16px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.edit-userdata-card {
+  margin-left: 20px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-container {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.update-button,
+.delete-button {
+  font-size: 16px;
+  padding: 10px 20px;
+}
+
+.update-button {
+  background-color: #00796b !important;
+  color: #ffffff !important;
+  margin-right: 10px;
+}
+
+.delete-button {
+  background-color: #9a1d1d !important;
+  color: #ffffff !important;
+  margin-left: 10px;
+}
