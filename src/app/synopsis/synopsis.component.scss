@@ -1,0 +1,21 @@
+/* synopsis-dialog.component.css */
+
+.summary-dialog {
+  width: 400px;
+  background-color: #00796b;
+  border-radius: 8px;
+  position: relative; 
+}
+
+.summary-dialog-content {
+  color: #fff;
+  padding: 16px;
+}
+
+.summary-close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #fff;
+  z-index: 1010;
+}
