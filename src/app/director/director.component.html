@@ -5,18 +5,15 @@
     aria-label="Close the director button"
     mat-dialog-close
     color="primary"
-    style="color: black"
   >
-    X
+   Close
   </button>
   <mat-card-title>
     <h3 class="director-dialog-title">{{ data.director.Name }}</h3>
   </mat-card-title>
-  <br />
   <mat-dialog-content class="director-dialog-content">
     <b>Born: </b>{{ data.director.Birth | date: "longDate" }}
-    <br />
-    <br />
+    <br>
     <b>Bio: </b>{{ data.director.Bio }}
   </mat-dialog-content>
 </mat-card>
