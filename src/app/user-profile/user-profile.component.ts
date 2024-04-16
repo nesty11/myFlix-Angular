@@ -11,11 +11,9 @@ import { Observable } from 'rxjs';
 })
 export class UserProfileComponent implements OnInit {
   userData: any = { Username: '', Password: '', Email: '' };
-  newPassword: string = '';
-  newUsername: string = '';
-  newEmail: string = '';
   existingUsername: string = '';
   existingEmail: string = '';
+  existingPassword: string = '';
 
   constructor(
     public userRegistrationService: UserRegistrationService,
@@ -24,10 +22,11 @@ export class UserProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUserData().subscribe((userData) => {
-      if (userData) {
-        this.existingUsername = userData.Username;
-        this.existingEmail = userData.Email;
+    this.userRegistrationService.getOneUser().subscribe((existingUser) => {
+      if (existingUser) {
+        this.existingUsername = existingUser.Username;
+        this.existingEmail = existingUser.Email;
+        this.existingPassword = existingUser.Password;
       }
     });
   }
@@ -50,49 +49,40 @@ export class UserProfileComponent implements OnInit {
   }
 
   editUser(): void {
-    this.getUserData().subscribe((userData) => {
-      if (userData) {
-        const oldUsername = userData.Username;
-        console.log('Old Username:', oldUsername);
+    if (!this.userData.Username) {
+      this.userData.Username = this.existingUsername;
+    }
 
-        if (this.newUsername) {
-          console.log('New Username:', this.newUsername);
-          userData.Username = this.newUsername;
-        }
+    if (!this.userData.Email) {
+      this.userData.Email = this.existingEmail;
+    }
 
-        if (this.newEmail) {
-          console.log('New Email:', this.newEmail);
-          userData.Email = this.newEmail;
-        }
+    if (!this.userData.Password) {
+      this.userData.Password = this.existingPassword;
+    }
 
-        if (this.newPassword) {
-          console.log('New Password:', this.newPassword);
-          userData.Password = this.newPassword;
-        }
-
-        console.log('Updated User Data:', userData);
-
-        this.userRegistrationService
-          .updateUser(oldUsername, userData)
-          .subscribe(
-            (result) => {
-              console.log('Edit User Result:', result);
-              this.userData = result;
-              this.snackBar.open('User update successful', 'OK', {
-                duration: 2000,
-              });
-            },
-            (error) => {
-              console.error('Error updating user:', error);
-              this.snackBar.open('Failed to update user', 'OK', {
-                duration: 2000,
-              });
-            }
-          );
-      } else {
-        console.error('User data not found');
+    this.userRegistrationService.updateUser(this.userData).subscribe(
+      (user) => {
+        console.log('Edit User Result:', user);
+        // save existing values so read only area is updated
+        this.existingUsername = user.Username;
+        this.existingEmail = user.Email;
+        this.existingPassword = user.Password;
+        // reset form values
+        this.userData = { Username: '', Password: '', Email: '' };
+        // update localStorage
+        localStorage.setItem('user', JSON.stringify(user));
+        this.snackBar.open('User update successful', 'OK', {
+          duration: 2000,
+        });
+      },
+      (error) => {
+        console.error('Error updating user:', error);
+        this.snackBar.open('Failed to update user', 'OK', {
+          duration: 2000,
+        });
       }
-    });
+    );
   }
 
   deleteUser(): void {

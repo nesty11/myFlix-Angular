@@ -100,17 +100,15 @@ export class UserRegistrationService {
     }
   }
 
-  public getOneUser(username: string): Observable<any> {
+  public getOneUser(): Observable<any> {
     const userData = this.getUserFromLocalStorage();
     if (userData) {
-      const { Username, Email } = userData;
+      const { Username } = userData;
       const token = localStorage.getItem('token');
       return this.http
-        .get(apiUrl + '/users/' + username, {
+        .get(apiUrl + '/users/' + Username, {
           headers: new HttpHeaders({
             Authorization: 'Bearer ' + token,
-            Username: Username,
-            Email: Email,
           }),
         })
         .pipe(map(this.extractResponseData), catchError(this.handleError));
@@ -119,29 +117,22 @@ export class UserRegistrationService {
     }
   }
 
-  // Edit user
- /*  editUser(userData: any): Observable<any> {
-    const token = localStorage.getItem('token');
-    return this.http
-      .put(apiUrl + '/users/' + userData.Username, userData, {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + token,
-        }),
-      })
-      .pipe(map(this.extractResponseData), catchError(this.handleError));
-  } */
-
-  public updateUser(oldUsername: string, updatedUserData: any): Observable<any> {
-    const token = localStorage.getItem('token');
-    return this.http
-      .put(apiUrl + '/users/' + oldUsername, updatedUserData, {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + token,
-        }),
-      })
-      .pipe(map(this.extractResponseData), catchError(this.handleError));
+  public updateUser(updatedUserData: any): Observable<any> {
+    const userData = this.getUserFromLocalStorage();
+    if (userData) {
+      const { Username } = userData;
+      const token = localStorage.getItem('token');
+      return this.http
+        .put(apiUrl + '/users/' + Username, updatedUserData, {
+          headers: new HttpHeaders({
+            Authorization: 'Bearer ' + token,
+          }),
+        })
+        .pipe(map(this.extractResponseData), catchError(this.handleError));
+    } else {
+      return throwError('User data not found in localStorage');
+    }
   }
-  
 
   public addFavoriteMovies(movieID: string): Observable<any> {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
