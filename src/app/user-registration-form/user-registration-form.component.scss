@@ -1,24 +1,29 @@
+.form-container {
+  max-height: 400px;
+  overflow-y: auto;
+
+  @media screen and (min-width: 768px) {
+    max-height: none;
+  }
+}
+
 .custom-dialog-title {
-    font-size: 22px;
-    font-weight: 500;
-    margin: 5px 80px;
+  font-size: 20px;
+}
+
+.custom-dialog-content {
+  padding: 0;
 }
 
 .custom-form-field {
-    margin: 1rem auto;
-    width: 90%;
+  width: 100%;
+  margin-bottom: 15px;
 }
 
 .custom-dialog-actions {
-    display: flex;
-    justify-content: center;
+  justify-content: flex-end;
 }
 
 .custom-button {
-    margin: 10px auto;
-    padding: 1.5rem;
-    font-size: 18px;
-    background-color: #00796b !important; // Teal blue
-    color: #fff !important; // White
-    width: 90%;
+  min-width: 100px;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserRegistrationService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,6 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UserProfileComponent implements OnInit {
   userData: any = { Username: '', Password: '', Email: '' };
   newPassword: string = '';
+  newUsername: string = '';
+  newEmail: string = '';
   existingUsername: string = '';
   existingEmail: string = '';
 
@@ -21,64 +24,86 @@ export class UserProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const userData = this.getUserData();
-    if (userData) {
-      this.existingUsername = userData.Username;
-      this.existingEmail = userData.Email;
-    }
+    this.getUserData().subscribe((userData) => {
+      if (userData) {
+        this.existingUsername = userData.Username;
+        this.existingEmail = userData.Email;
+      }
+    });
   }
 
-  getUserData() {
+  getUserData(): Observable<any> {
     const userDataString = localStorage.getItem('user');
     if (userDataString) {
       const userData = JSON.parse(userDataString);
       const { Username, Email } = userData;
-      return { Username, Email };
+      return new Observable((observer) => {
+        observer.next({ Username, Email });
+        observer.complete();
+      });
     } else {
-      return null;
+      return new Observable((observer) => {
+        observer.next(null);
+        observer.complete();
+      });
     }
   }
 
   editUser(): void {
-    const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+    this.getUserData().subscribe((userData) => {
+      if (userData) {
+        const oldUsername = userData.Username;
+        console.log('Old Username:', oldUsername);
 
-    this.userData.Username = currentUser.Username;
+        if (this.newUsername) {
+          console.log('New Username:', this.newUsername);
+          userData.Username = this.newUsername;
+        }
 
-    if (this.newPassword) {
-      this.userData.Password = this.newPassword;
-    }
+        if (this.newEmail) {
+          console.log('New Email:', this.newEmail);
+          userData.Email = this.newEmail;
+        }
 
-    this.userRegistrationService.editUser(this.userData).subscribe(
-      (result) => {
-        this.userData = result;
-        this.snackBar.open('User update successful', 'OK', {
-          duration: 2000,
-        });
-      },
-      (error) => {
-        console.error('Error updating user:', error);
-        this.snackBar.open('Failed to update user', 'OK', {
-          duration: 2000,
-        });
+        if (this.newPassword) {
+          console.log('New Password:', this.newPassword);
+          userData.Password = this.newPassword;
+        }
+
+        console.log('Updated User Data:', userData);
+
+        this.userRegistrationService
+          .updateUser(oldUsername, userData)
+          .subscribe(
+            (result) => {
+              console.log('Edit User Result:', result);
+              this.userData = result;
+              this.snackBar.open('User update successful', 'OK', {
+                duration: 2000,
+              });
+            },
+            (error) => {
+              console.error('Error updating user:', error);
+              this.snackBar.open('Failed to update user', 'OK', {
+                duration: 2000,
+              });
+            }
+          );
+      } else {
+        console.error('User data not found');
       }
-    );
+    });
   }
 
   deleteUser(): void {
-    this.userRegistrationService.deleteUser(this.userData.Username).subscribe(
-      () => {
+    if (confirm('Do you want to delete your account permanently?')) {
+      this.router.navigate(['welcome']).then(() => {
         localStorage.clear();
-        this.router.navigate(['welcome']);
-        this.snackBar.open('User deleted successfully', 'OK', {
-          duration: 2000,
+        this.snackBar.open('Your account has been deleted', 'OK', {
+          duration: 3000,
         });
-      },
-      (error) => {
-        console.error('Error deleting user:', error);
-        this.snackBar.open('Failed to delete user', 'OK', {
-          duration: 2000,
-        });
-      }
-    );
+      });
+      this.userRegistrationService.deleteUser().subscribe(() => {});
+    }
   }
 }
