@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
-  userData: any = { Username: '', Password: '', Email: '' };
+  userData: any = { Username: ''/* , Password: '' */, Email: '' };
   existingUsername: string = '';
   existingEmail: string = '';
 /*   existingPassword: string = '';
