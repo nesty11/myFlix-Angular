@@ -13,8 +13,8 @@ export class UserProfileComponent implements OnInit {
   userData: any = { Username: '', Password: '', Email: '' };
   existingUsername: string = '';
   existingEmail: string = '';
-  existingPassword: string = '';
-
+/*   existingPassword: string = '';
+ */
   constructor(
     public userRegistrationService: UserRegistrationService,
     public snackBar: MatSnackBar,
@@ -26,8 +26,8 @@ export class UserProfileComponent implements OnInit {
       if (existingUser) {
         this.existingUsername = existingUser.Username;
         this.existingEmail = existingUser.Email;
-        this.existingPassword = existingUser.Password;
-      }
+/*         this.existingPassword = existingUser.Password;
+ */      }
     });
   }
 
@@ -57,9 +57,9 @@ export class UserProfileComponent implements OnInit {
       this.userData.Email = this.existingEmail;
     }
 
-    if (!this.userData.Password) {
+   /*  if (!this.userData.Password) {
       this.userData.Password = this.existingPassword;
-    }
+    } */
 
     this.userRegistrationService.updateUser(this.userData).subscribe(
       (user) => {
@@ -67,9 +67,9 @@ export class UserProfileComponent implements OnInit {
         // save existing values so read only area is updated
         this.existingUsername = user.Username;
         this.existingEmail = user.Email;
-        this.existingPassword = user.Password;
+        /* this.existingPassword = user.Password; */
         // reset form values
-        this.userData = { Username: '', Password: '', Email: '' };
+        this.userData = { Username: '', /* Password: '' */ Email: '' };
         // update localStorage
         localStorage.setItem('user', JSON.stringify(user));
         this.snackBar.open('User update successful', 'OK', {
