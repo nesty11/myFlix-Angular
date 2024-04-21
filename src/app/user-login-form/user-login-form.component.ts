@@ -21,6 +21,12 @@ export class UserLoginFormComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * @description Logs in a user.
+   * Calls the userLogin method of UserRegistrationService to perform login.
+   * If login is successful, saves user data and token to localStorage and closes the dialog.
+   * If login fails, displays a snack bar message.
+   */
   loginUser(): void {
     this.UserRegistrationService.userLogin(this.userData).subscribe(
       (result) => {

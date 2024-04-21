@@ -27,13 +27,19 @@ export class UserRegistrationFormComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * @description Opens a dialog
+   */
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.panelClass = 'custom-dialog'; // Apply custom class to dialog
+    dialogConfig.panelClass = 'custom-dialog';
     this.dialog.open(UserRegistrationFormComponent, dialogConfig);
   }
 
-  //This is the function responsible for sending the form inputs to the backend
+  /**
+   * @description Registers a new user
+   * Responsible for sending the form inputs to the backend
+   */
   registerUser(): void {
     this.UserRegistrationService.userRegistration(this.userData).subscribe({
       next: (response) => {

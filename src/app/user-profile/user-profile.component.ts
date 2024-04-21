@@ -10,11 +10,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
-  userData: any = { Username: ''/* , Password: '' */, Email: '' };
+  userData: any = { Username: '', Email: '' };
   existingUsername: string = '';
   existingEmail: string = '';
-/*   existingPassword: string = '';
- */
+
   constructor(
     public userRegistrationService: UserRegistrationService,
     public snackBar: MatSnackBar,
@@ -22,15 +21,19 @@ export class UserProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Fetch user data when the component initializes
     this.userRegistrationService.getOneUser().subscribe((existingUser) => {
       if (existingUser) {
         this.existingUsername = existingUser.Username;
         this.existingEmail = existingUser.Email;
-/*         this.existingPassword = existingUser.Password;
- */      }
+      }
     });
   }
 
+  /**
+   * @description Retrieves user data from localStorage.
+   * @returns {Observable<any>} An observable that emits the user data.
+   */
   getUserData(): Observable<any> {
     const userDataString = localStorage.getItem('user');
     if (userDataString) {
@@ -48,7 +51,11 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  /**
+   * @description Edits user information.
+   */
   editUser(): void {
+    // If username or email is not provided, use existing values
     if (!this.userData.Username) {
       this.userData.Username = this.existingUsername;
     }
@@ -57,21 +64,18 @@ export class UserProfileComponent implements OnInit {
       this.userData.Email = this.existingEmail;
     }
 
-   /*  if (!this.userData.Password) {
-      this.userData.Password = this.existingPassword;
-    } */
-
+    // Call the service to update user information
     this.userRegistrationService.updateUser(this.userData).subscribe(
       (user) => {
         console.log('Edit User Result:', user);
-        // save existing values so read only area is updated
+        // Save existing values to update read-only area
         this.existingUsername = user.Username;
         this.existingEmail = user.Email;
-        /* this.existingPassword = user.Password; */
-        // reset form values
-        this.userData = { Username: '', /* Password: '' */ Email: '' };
-        // update localStorage
+        // Reset form values
+        this.userData = { Username: '', Email: '' };
+        // Update localStorage
         localStorage.setItem('user', JSON.stringify(user));
+        // Display success message
         this.snackBar.open('User update successful', 'OK', {
           duration: 2000,
         });
@@ -85,14 +89,21 @@ export class UserProfileComponent implements OnInit {
     );
   }
 
+  /**
+   * @description Deletes user account.
+   */
   deleteUser(): void {
+    // Confirm deletion with user
     if (confirm('Do you want to delete your account permanently?')) {
+      // Navigate to welcome page after account deletion
       this.router.navigate(['welcome']).then(() => {
-        localStorage.clear();
+        localStorage.clear(); // Clear localStorage
+        // Display deletion confirmation message
         this.snackBar.open('Your account has been deleted', 'OK', {
           duration: 3000,
         });
       });
+      // Call the service to delete user account
       this.userRegistrationService.deleteUser().subscribe(() => {});
     }
   }
