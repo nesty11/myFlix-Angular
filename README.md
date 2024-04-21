@@ -41,7 +41,7 @@ Here is the original project link: https://github.com/nesty11/myFlix-client
 
 ## Installation 🚀
 
-To get started with NvFlix, follow these steps:
+To get started with myFlix-Angular, follow these steps:
 
 1. Clone the repository:
 
@@ -64,7 +64,7 @@ To get started with NvFlix, follow these steps:
    npm start
 ```
 
-5. Open your browser and visit http://localhost:4200 to access NvFlix and start exploring!
+5. Open your browser and visit http://localhost:4200 to access myFlix-Angular and start exploring!
 
 ## Development server
 
